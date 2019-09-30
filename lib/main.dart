@@ -40,7 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.home),
         title: Text(widget.title),
         actions: getAppbar(context),
       ),
@@ -69,13 +68,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
 List<Widget> getAppbar(BuildContext context) {
   return <Widget>[
+    new IconButton(
+      tooltip: M.home,
+      onPressed: () {
+        Navigator.popUntil(context, ModalRoute.withName("#"));
+      },
+      icon: Icon(Icons.home),
+    ),
     IconButton(
         icon: Icon(Icons.edit_attributes), tooltip: M.pjbz, onPressed: () {}),
     IconButton(icon: Icon(Icons.edit), tooltip: M.pj, onPressed: () {}),
     PopupMenuButton<String>(
         itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-              PopupMenuItem<String>(value: "pj", child: ListTile(leading: Icon(Icons.account_circle),title: Text(M.pj),)),
-              PopupMenuItem<String>(value: "PJJG", child: ListTile(leading: Icon(Icons.add_to_queue),title: Text(M.pjjg),)),
+              PopupMenuItem<String>(
+                  value: "pj",
+                  child: ListTile(
+                    leading: Icon(Icons.account_circle),
+                    title: Text(M.pj),
+                  )),
+              PopupMenuItem<String>(
+                  value: "PJJG",
+                  child: ListTile(
+                    leading: Icon(Icons.add_to_queue),
+                    title: Text(M.pjjg),
+                  )),
             ],
         onSelected: (String action) {
           switch (action) {
