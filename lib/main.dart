@@ -42,28 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         leading: Icon(Icons.home),
         title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.edit_attributes),
-              tooltip: M.pjbz,
-              onPressed: () {}),
-          IconButton(icon: Icon(Icons.edit), tooltip: M.pj, onPressed: () {}),
-          PopupMenuButton<String>(
-              itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                    PopupMenuItem<String>(value: "pj", child: Text(M.pj)),
-                    PopupMenuItem<String>(value: "PJJG", child: Text(M.pjjg)),
-                  ],
-              onSelected: (String action) {
-                switch (action) {
-                  case "pj":
-                    // do nothing
-                    break;
-                  case "pjjg":
-                    // do nothing
-                    break;
-                }
-              })
-        ],
+        actions: getAppbar(context),
       ),
       body: Center(
         child: Column(
@@ -86,4 +65,27 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+List<Widget> getAppbar(BuildContext context) {
+  return <Widget>[
+    IconButton(
+        icon: Icon(Icons.edit_attributes), tooltip: M.pjbz, onPressed: () {}),
+    IconButton(icon: Icon(Icons.edit), tooltip: M.pj, onPressed: () {}),
+    PopupMenuButton<String>(
+        itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+              PopupMenuItem<String>(value: "pj", child: ListTile(leading: Icon(Icons.account_circle),title: Text(M.pj),)),
+              PopupMenuItem<String>(value: "PJJG", child: ListTile(leading: Icon(Icons.add_to_queue),title: Text(M.pjjg),)),
+            ],
+        onSelected: (String action) {
+          switch (action) {
+            case "pj":
+              // do nothing
+              break;
+            case "pjjg":
+              // do nothing
+              break;
+          }
+        })
+  ];
 }
