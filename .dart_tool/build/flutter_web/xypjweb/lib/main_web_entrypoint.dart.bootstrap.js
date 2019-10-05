@@ -83,6 +83,7 @@ let modulePaths = {
  "packages/typed_data/typed_buffers": "packages/typed_data/typed_buffers.ddc",
  "packages/vector_math/hash": "packages/vector_math/hash.ddc",
  "packages/vector_math/vector_math_64": "packages/vector_math/vector_math_64.ddc",
+ "packages/xypjweb/childItemView": "packages/xypjweb/childItemView.ddc",
  "packages/xypjweb/m": "packages/xypjweb/m.ddc",
  "packages/xypjweb/main": "packages/xypjweb/main.ddc",
  "packages/xypjweb/main_web_entrypoint": "packages/xypjweb/main_web_entrypoint.ddc"

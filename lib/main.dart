@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'm.dart';
+import 'childItemView.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,95 +14,137 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: M.appName),
+      home: BotomeMenumBarPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class BotomeMenumBarPage extends StatefulWidget {
+  BotomeMenumBarPage();
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  BotomeMenumBarPageState createState() => BotomeMenumBarPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class BotomeMenumBarPageState extends State<BotomeMenumBarPage> {
+  BotomeMenumBarPageState();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: getAppbar(context),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+    return buildBottomTabScaffold();
+  }
+
+  //当前显示页面的
+  int currentIndex = 0;
+  //点击导航项是要显示的页面
+  final pages = [
+    ChildItemView("首页"),
+    ChildItemView("发现"),
+    ChildItemView("消息"),
+    ChildItemView("我的")
+  ];
+
+  Widget buildBottomTabScaffold() {
+    return SizedBox(
+        height: 100,
+        child: Scaffold(
+          //对应的页面
+          body: pages[currentIndex],
+          //appBar: AppBar(title: const Text('Bottom App Bar')),
+          //悬浮按钮的位置
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          //悬浮按钮
+          floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () {
+              print("add press ");
+            },
+          ),
+          //其他菜单栏
+          bottomNavigationBar: BottomAppBar(
+            //悬浮按钮 与其他菜单栏的结合方式
+            shape: CircularNotchedRectangle(),
+            // FloatingActionButton和BottomAppBar 之间的差距
+            notchMargin: 6.0,
+            color: Colors.blue,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                buildBotomItem(currentIndex, 0, Icons.home, "首页"),
+                buildBotomItem(currentIndex, 1, Icons.library_music, "发现"),
+                //buildBotomItem(currentIndex, -1, null, "发现"),
+                buildBotomItem(currentIndex, 2, Icons.email, "消息"),
+                buildBotomItem(currentIndex, 3, Icons.person, "我的"),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+          ),
+        ));
+  }
+
+// ignore: slash_for_doc_comments
+  /**
+  * @param selectIndex 当前选中的页面
+  * @param index 每个条目对应的角标
+  * @param iconData 每个条目对就的图标
+  * @param title 每个条目对应的标题
+  */
+  buildBotomItem(int selectIndex, int index, IconData iconData, String title) {
+    //未选中状态的样式
+    TextStyle textStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
+    MaterialColor iconColor = Colors.grey;
+    double iconSize = 20;
+    EdgeInsetsGeometry padding = EdgeInsets.only(top: 5.0);
+
+    if (selectIndex == index) {
+      //选中状态的文字样式
+      textStyle = TextStyle(fontSize: 13.0, color: Colors.blue);
+      //选中状态的按钮样式
+      iconColor = Colors.blue;
+      iconSize = 25;
+      padding = EdgeInsets.only(top: 10.0);
+    }
+    Widget padItem = SizedBox();
+    if (iconData != null) {
+      padItem = Padding(
+        padding: padding,
+        child: Container(
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  iconData,
+                  color: iconColor,
+                  size: iconSize,
+                ),
+                Text(
+                  title,
+                  style: textStyle,
+                )
+              ],
             ),
-          ],
+          ),
+        ),
+      );
+    }
+    Widget item = Expanded(
+      flex: 1,
+      child: new GestureDetector(
+        onTap: () {
+          if (index != currentIndex) {
+            setState(() {
+              currentIndex = index;
+            });
+          }
+        },
+        child: SizedBox(
+          height: 52,
+          child: padItem,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+    return item;
   }
-}
-
-List<Widget> getAppbar(BuildContext context) {
-  return <Widget>[
-    new IconButton(
-      tooltip: M.home,
-      onPressed: () {
-        Navigator.popUntil(context, ModalRoute.withName("#"));
-      },
-      icon: Icon(Icons.home),
-    ),
-    IconButton(
-        icon: Icon(Icons.edit_attributes), tooltip: M.pjbz, onPressed: () {}),
-    IconButton(icon: Icon(Icons.edit), tooltip: M.pj, onPressed: () {}),
-    PopupMenuButton<String>(
-        itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-              PopupMenuItem<String>(
-                  value: "pj",
-                  child: ListTile(
-                    leading: Icon(Icons.account_circle),
-                    title: Text(M.pj),
-                  )),
-              PopupMenuItem<String>(
-                  value: "PJJG",
-                  child: ListTile(
-                    leading: Icon(Icons.add_to_queue),
-                    title: Text(M.pjjg),
-                  )),
-            ],
-        onSelected: (String action) {
-          switch (action) {
-            case "pj":
-              // do nothing
-              break;
-            case "pjjg":
-              // do nothing
-              break;
-          }
-        })
-  ];
 }

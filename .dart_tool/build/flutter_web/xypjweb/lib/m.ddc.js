@@ -15,24 +15,23 @@ define(['dart_sdk'], function(dart_sdk) {
     /*m.M.appName*/get appName() {
       return "环境信用评价";
     },
-    set appName(_) {},
     /*m.M.pjbz*/get pjbz() {
       return "评价标准";
     },
-    set pjbz(_) {},
     /*m.M.pj*/get pj() {
       return "评价";
     },
-    set pj(_) {},
     /*m.M.pjjg*/get pjjg() {
       return "评价结果";
     },
-    set pjjg(_) {}
+    /*m.M.home*/get home() {
+      return "开始";
+    }
   });
   dart.trackLibraries("packages/xypjweb/m", {
     "package:xypjweb/m.dart": m
   }, {
-  }, '{"version":3,"sourceRoot":"","sources":["m.dart"],"names":[],"mappings":";;;;;;;;;;EAKA;;;;MAJgB,WAAO;YAAG;;;MACV,QAAI;YAAG;;;MACP,MAAE;YAAG;;;MACL,QAAI;YAAG","file":"m.ddc.js"}');
+  }, '{"version":3,"sourceRoot":"","sources":["m.dart"],"names":[],"mappings":";;;;;;;;;;EAMA;;;;MALsB,WAAO;;;MACP,QAAI;;;MACJ,MAAE;;;MACF,QAAI;;;MACJ,QAAI","file":"m.ddc.js"}');
   // Exports:
   return {
     m: m
