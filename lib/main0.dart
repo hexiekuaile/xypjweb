@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'm.dart';
 import 'childItemView.dart';
-import 'pjzb.dart';
+import 'pjbzView.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,7 +40,7 @@ class BotomeMenumBarPageState extends State<BotomeMenumBarPage> {
   //点击导航项是要显示的页面
   final pages = [
     ChildItemView("首页"),
-    Pjzb(),
+    PjbzView(),
     ChildItemView("评价"),
     ChildItemView("我的")
   ];
@@ -74,7 +74,7 @@ class BotomeMenumBarPageState extends State<BotomeMenumBarPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 buildBotomItem(currentIndex, 0, Icons.home, "首页"),
-                buildBotomItem(currentIndex, 1, Icons.library_music, "指标"),
+                buildBotomItem(currentIndex, 1, Icons.library_music, "标准"),
                 //buildBotomItem(currentIndex, -1, null, "发现"),
                 buildBotomItem(currentIndex, 2, Icons.email, "评价"),
                 buildBotomItem(currentIndex, 3, Icons.person, "我的"),
